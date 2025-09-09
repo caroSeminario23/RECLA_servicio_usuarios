@@ -8,7 +8,7 @@ user = os.getenv('DB_USER')
 pwd = os.getenv('DB_PASSWORD')
 host = os.getenv('DB_HOST')
 db = os.getenv('DB_NAME')
-server = os.getenv('SERVER')
+server = os.getenv('DB_SERVER')
 port = os.getenv('DB_PORT')
 
 # Crear la cadena de conexión

@@ -1,5 +1,5 @@
 # REGISTRAR ECOAPRENDIZ
-POST http://172.31.44.180:5000/usuario_routes/registro_ecoaprendiz
+POST http://172.0.0.1:5000/usuario_routes/registro_ecoaprendiz
 Content-Type: application/json
 
 {
@@ -11,7 +11,7 @@ Content-Type: application/json
 ###
 
 # INICIAR SESION ECOAPRENDIZ
-POST http://172.31.44.180:5000/usuario_routes/login_ecoaprendiz
+POST http://172.0.0.1:5000/usuario_routes/login_ecoaprendiz
 Content-Type: application/json
 
 {
@@ -21,7 +21,7 @@ Content-Type: application/json
 ###
 
 # VERIFICAN EMAIL
-POST http://172.31.44.180:5000/usuario_routes/verificar_email
+POST http://172.0.0.1:5000/usuario_routes/verificar_email
 Content-Type: application/json
 
 {
@@ -30,7 +30,7 @@ Content-Type: application/json
 ###
 
 # VERIFICAR USERNAME
-POST http://172.31.44.180:5000/usuario_routes/verificar_username
+POST http://172.0.0.1:5000/usuario_routes/verificar_username
 Content-Type: application/json
 
 {
