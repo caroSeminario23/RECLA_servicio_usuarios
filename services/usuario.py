@@ -10,7 +10,7 @@ from schemas.usuario import usuario_login_response_schema
 from schemas.usuario import usuario_registro_schema
 from schemas.usuario import email_validacion_schema
 from schemas.usuario import username_validacion_schema
-from utils.encriptar_contrasena import encriptar_contrasena
+from utils.encriptar_contrasena import encriptar_contrasena, verificar_contrasena
 
 usuario_routes = Blueprint("usuario_routes", __name__)
 
@@ -67,7 +67,7 @@ def login_ecoaprendiz():
     
     usuario = Usuario.query.filter_by(email=email).first()
 
-    if not usuario or not check_password_hash(usuario.contrasena, contrasena):
+    if not usuario or not verificar_contrasena(contrasena, usuario.contrasena):
         data = {
             "message": "Credenciales inválidas",
             "status": 401

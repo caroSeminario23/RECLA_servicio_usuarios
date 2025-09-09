@@ -7,23 +7,23 @@ from models.usuario import Usuario
 # VALIDACIONES
 class BaseUsuarioSchema(ma.SQLAlchemyAutoSchema):
     @validates("email")
-    def validate_email(self, value):
+    def validate_email(self, value, **kwargs):
         if "@" not in value:
             raise ValidationError("Email inválido")
 
     @validates("username")
-    def validate_username(self, value):
+    def validate_username(self, value, **kwargs):
         if not 5 <= len(value) <= 20:
             raise ValidationError("El username debe tener entre 5 y 20 caracteres")
 
     @validates("contrasena")
-    def validate_contrasena(self, value):
+    def validate_contrasena(self, value, **kwargs):
         if len(value) != 6:
             raise ValidationError("La contraseña debe tener 6 caracteres")
 
     class Meta:
         model = Usuario
-        load_instance = True
+        load_instance = False
 
 
 # SCHEMAS

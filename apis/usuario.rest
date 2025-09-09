@@ -1,39 +1,39 @@
 # REGISTRAR ECOAPRENDIZ
-POST http://172.0.0.1:5000/usuario_routes/registro_ecoaprendiz
+POST http://127.0.0.1:5000/usuario_routes/registro_ecoaprendiz
 Content-Type: application/json
 
 {
-    "email": "",
-    "contrasena": "",
-    "fec_nac": "",
-    "username": ""
+    "email": "semivaldi@gmail.com",
+    "contrasena": "123456",
+    "fec_nac": "2002-06-11",
+    "username": "eucalipto"
 }
 ###
 
 # INICIAR SESION ECOAPRENDIZ
-POST http://172.0.0.1:5000/usuario_routes/login_ecoaprendiz
+POST http://127.0.0.1:5000/usuario_routes/login_ecoaprendiz
 Content-Type: application/json
 
 {
-    "email": "",
-    "contrasena": ""
+    "email": "semivaldi@gmail.com",
+    "contrasena": "123456"
 }
 ###
 
 # VERIFICAN EMAIL
-POST http://172.0.0.1:5000/usuario_routes/verificar_email
+POST http://127.0.0.1:5000/usuario_routes/verificar_email
 Content-Type: application/json
 
 {
-    "email": ""
+    "email": "semivaldi@gmail.com"
 }
 ###
 
 # VERIFICAR USERNAME
-POST http://172.0.0.1:5000/usuario_routes/verificar_username
+POST http://127.0.0.1:5000/usuario_routes/verificar_username
 Content-Type: application/json
 
 {
-    "username": ""
+    "username": "eucalipto"
 }
 ###
