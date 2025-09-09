@@ -12,10 +12,10 @@ from schemas.usuario import email_validacion_schema
 from schemas.usuario import username_validacion_schema
 from utils.encriptar_contrasena import encriptar_contrasena
 
-usuario_routes = Blueprint("usuario-routes", __name__)
+usuario_routes = Blueprint("usuario_routes", __name__)
 
 # REGISTRO DE USUARIO
-@usuario_routes.route("/registro-ecoaprendiz", methods=["POST"])
+@usuario_routes.route("/registro_ecoaprendiz", methods=["POST"])
 def registro_ecoaprendiz():
     try:
         datos = usuario_registro_schema.load(request.json)
@@ -55,7 +55,7 @@ def registro_ecoaprendiz():
 
 
 # INICIO DE SESIÓN
-@usuario_routes.route("/login-ecoaprendiz", methods=["POST"])
+@usuario_routes.route("/login_ecoaprendiz", methods=["POST"])
 def login_ecoaprendiz():
     try:
         datos = usuario_login_request_schema.load(request.json)
@@ -86,7 +86,7 @@ def login_ecoaprendiz():
 
 
 # VERIFICAR EMAIL
-@usuario_routes.route("/verificar-email", methods=["POST"])
+@usuario_routes.route("/verificar_email", methods=["POST"])
 def verificar_email():
     try:
         datos = email_validacion_schema.load(request.json)
@@ -113,7 +113,7 @@ def verificar_email():
 
 
 # VERIFICAR USERNAME
-@usuario_routes.route("/verificar-username", methods=["POST"])
+@usuario_routes.route("/verificar_username", methods=["POST"])
 def verificar_username():
     try:
         datos = username_validacion_schema.load(request.json)

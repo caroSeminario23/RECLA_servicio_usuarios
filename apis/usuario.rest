@@ -1,0 +1,39 @@
+# REGISTRAR ECOAPRENDIZ
+POST http://172.31.44.180:5000/usuario_routes/registro_ecoaprendiz
+Content-Type: application/json
+
+{
+    "email": "",
+    "contrasena": "",
+    "fec_nac": "",
+    "username": ""
+}
+###
+
+# INICIAR SESION ECOAPRENDIZ
+POST http://172.31.44.180:5000/usuario_routes/login_ecoaprendiz
+Content-Type: application/json
+
+{
+    "email": "",
+    "contrasena": ""
+}
+###
+
+# VERIFICAN EMAIL
+POST http://172.31.44.180:5000/usuario_routes/verificar_email
+Content-Type: application/json
+
+{
+    "email": ""
+}
+###
+
+# VERIFICAR USERNAME
+POST http://172.31.44.180:5000/usuario_routes/verificar_username
+Content-Type: application/json
+
+{
+    "username": ""
+}
+###
