@@ -7,4 +7,8 @@
 
 - Registro de usuario ecoaprendiz
 
-    ![Demo de registro de usuario ecoaprendiz](images/demo_registro_ecoaprendiz.gif)
+    ![Demo de registro de usuario ecoaprendiz](images/demo_registro.gif)
+
+- Servidor local
+
+    ![Registro de consola](images/demo_inicio_registro.png)
