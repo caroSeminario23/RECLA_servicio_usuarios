@@ -5,7 +5,7 @@ from sqlalchemy.exc import IntegrityError
 from utils.db import db
 
 from models.usuario import Usuario
-from schemas.usuario import usuario_login_request_schema
+from schemas.usuario import VendedorRequestSchema, VendedorResponseSchema, usuario_login_request_schema
 from schemas.usuario import usuario_login_response_schema
 from schemas.usuario import usuario_registro_schema
 from schemas.usuario import email_validacion_schema
@@ -134,6 +134,35 @@ def verificar_username():
     data = {
         "message": "El username está disponible",
         "status": 200
+    }
+
+    return make_response(jsonify(data), 200)
+
+# OBTENER NOMBRE DE USUARIO DEL VENDEDOR
+@usuario_routes.route("/obtener_username_vendedor", methods=["POST"])
+def obtener_username_vendedor():
+    try:
+        datos = VendedorRequestSchema().load(request.json)
+    except ValidationError as err:
+        return make_response(jsonify({"errors": err.messages, "status": 400}), 400)
+
+    id_usuario = datos["id_usuario"]
+
+    usuario = Usuario.query.filter_by(id_usuario=id_usuario).first()
+
+    if not usuario:
+        data = {
+            "message": "Vendedor no encontrado",
+            "status": 404
+        }
+        return make_response(jsonify(data), 404)
+
+    resultado = VendedorResponseSchema().dump(usuario)
+
+    data = {
+        "message": "Vendedor encontrado",
+        "status": 200,
+        "data": resultado
     }
 
     return make_response(jsonify(data), 200)

@@ -64,6 +64,20 @@ class UsernameValidacionSchema(BaseUsuarioSchema):
         fields = ('username',)
 
 
+class VendedorRequestSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Usuario
+        fields = (
+            'id_usuario',
+        )
+
+class VendedorResponseSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = Usuario
+        fields = (
+            'username',
+        )
+
 # INSTANCIAS DE SCHEMAS
 usuario_registro_schema = UsuarioRegistroSchema()
 usuarios_registro_schema = UsuarioRegistroSchema(many=True)
