@@ -1,16 +1,18 @@
 from flask import Blueprint, request, jsonify, make_response
 from marshmallow import ValidationError
-from werkzeug.security import check_password_hash
 from sqlalchemy.exc import IntegrityError
-from utils.db import db
 
-from models.usuario import Usuario
-from schemas.usuario import VendedorRequestSchema, VendedorResponseSchema, usuario_login_request_schema
-from schemas.usuario import usuario_login_response_schema
-from schemas.usuario import usuario_registro_schema
-from schemas.usuario import email_validacion_schema
-from schemas.usuario import username_validacion_schema
+from utils.db import db
 from utils.encriptar_contrasena import encriptar_contrasena, verificar_contrasena
+from models.usuario import Usuario
+from models.estatus import Estatus
+from schemas.usuario import (vendedor_request_schema,
+                             vendedor_response_schema,
+                             usuario_login_request_schema,
+                             usuario_login_response_schema,
+                             usuario_registro_schema,
+                             email_validacion_schema,
+                             username_validacion_schema)
 
 usuario_routes = Blueprint("usuario_routes", __name__)
 
@@ -45,6 +47,21 @@ def registro_ecoaprendiz():
             "message": "El email o username ya está en uso",
             "status": 400
         }), 400)
+    
+    # Crear un registro de estatus asociado al nuevo usuario
+    nuevo_estatus = Estatus(
+        id_usuario=nuevo_usuario.id_usuario
+    )
+
+    try:
+        db.session.add(nuevo_estatus)
+        db.session.commit()
+    except IntegrityError:
+        db.session.rollback()
+        return make_response(jsonify({
+            "message": "Error al crear el estatus",
+            "status": 500
+        }), 500)
 
     data = {
         "message": "Registro de ecoaprendiz exitoso",
@@ -75,6 +92,20 @@ def login_ecoaprendiz():
         return make_response(jsonify(data), 401)
 
     resultado = usuario_login_response_schema.dump(usuario)
+
+    # Si la respuesta es exitosa, se registra el logeo en estatus
+    estatus = Estatus.query.filter_by(id_usuario=usuario.id_usuario).first()
+
+    if estatus:
+        try:
+            estatus.logeo_hoy = True
+            db.session.commit()
+        except IntegrityError:
+            db.session.rollback()
+            return make_response(jsonify({
+                "message": "Error al actualizar el estado de logeo",
+                "status": 500
+            }), 500)
 
     data = {
         "message": "Inicio de sesión exitoso",
@@ -138,11 +169,12 @@ def verificar_username():
 
     return make_response(jsonify(data), 200)
 
+
 # OBTENER NOMBRE DE USUARIO DEL VENDEDOR
 @usuario_routes.route("/obtener_username_vendedor", methods=["POST"])
 def obtener_username_vendedor():
     try:
-        datos = VendedorRequestSchema().load(request.json)
+        datos = vendedor_request_schema.load(request.json)
     except ValidationError as err:
         return make_response(jsonify({"errors": err.messages, "status": 400}), 400)
 
@@ -157,7 +189,7 @@ def obtener_username_vendedor():
         }
         return make_response(jsonify(data), 404)
 
-    resultado = VendedorResponseSchema().dump(usuario)
+    resultado = vendedor_response_schema.dump(usuario)
 
     data = {
         "message": "Vendedor encontrado",

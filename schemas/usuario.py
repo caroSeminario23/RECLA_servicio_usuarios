@@ -1,5 +1,5 @@
 from utils.ma import ma
-from marshmallow import fields, validates, ValidationError
+from marshmallow import validates, ValidationError
 
 from models.usuario import Usuario
 
@@ -93,3 +93,9 @@ emails_validacion_schema = EmailValidacionSchema(many=True)
 
 username_validacion_schema = UsernameValidacionSchema()
 usernames_validacion_schema = UsernameValidacionSchema(many=True)
+
+vendedor_request_schema = VendedorRequestSchema()
+vendedores_request_schema = VendedorRequestSchema(many=True)
+
+vendedor_response_schema = VendedorResponseSchema()
+vendedores_response_schema = VendedorResponseSchema(many=True)
