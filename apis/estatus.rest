@@ -1,0 +1,57 @@
+# MOSTRAR ESTATUS DE PERFIL
+POST http://127.0.0.1:5000/estatus_routes/estatus_perfil
+Content-Type: application/json
+
+{
+    "id_usuario": 1
+}
+###
+
+# MOSTRAR ESTATUS DE CONTADORES
+POST http://127.0.0.1:5000/estatus_routes/estatus_contadores
+Content-Type: application/json
+
+{
+    "id_usuario": 1
+}
+###
+
+# REGISTRAR ACTIVIDAD DIARIA
+POST http://127.0.0.1:5000/estatus_routes/registrar_actividad
+Content-Type: application/json
+
+{
+    "id_usuario": 1
+}
+###
+
+# VERIFICADOR PUNTOS INSIGNIA
+POST http://127.0.0.1:5000/estatus_routes/verificar_puntos_insignia
+Content-Type: application/json
+
+{
+    "id_usuario": 1,
+    "tipo_insignia": 1,
+    "precio_insignia": 3
+}
+###
+
+# VERIFICADOR DE PUNTOS STICKER
+POST http://127.0.0.1:5000/estatus_routes/verificar_puntos_sticker
+Content-Type: application/json
+
+{
+    "id_usuario": 1,
+    "precio_sticker": 50
+}
+###
+
+# AUMENTAR EXPERIENCIA
+POST http://127.0.0.1:5000/estatus_routes/aumentar_experiencia
+Content-Type: application/json
+
+{
+    "id_usuario": 1,
+    "motivo": 1
+}
+###
