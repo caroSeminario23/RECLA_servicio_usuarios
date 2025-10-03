@@ -30,13 +30,14 @@ class EstatusContadoresSchema(ma.SQLAlchemyAutoSchema):
             'n_rec_educativos'
         )
 
+'''
 class EstatusActividadSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Estatus
         fields = (
             'id_usuario',
             'activo_hoy'
-        )
+        ) '''
 
 
 # INSTANCIAS DE SCHEMAS
@@ -49,5 +50,5 @@ estatus_perfiles_schema = EstatusPerfilSchema(many=True)
 estatus_contadores_schema = EstatusContadoresSchema()
 estatus_contadores_varios_schema = EstatusContadoresSchema(many=True)
 
-estatus_actividad_schema = EstatusActividadSchema()
-estatus_actividades_schema = EstatusActividadSchema(many=True)
+#estatus_actividad_schema = EstatusActividadSchema()
+#estatus_actividades_schema = EstatusActividadSchema(many=True)
