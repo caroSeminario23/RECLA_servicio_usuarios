@@ -2,7 +2,6 @@ from flask import Blueprint, request, jsonify, make_response
 
 from utils.db import db
 from models.estatus import Estatus
-from models.usuario import Usuario
 from schemas.estatus import (estatus_perfil_schema,
                              estatus_contadores_schema)
 
@@ -145,8 +144,8 @@ def registrar_actividad():
     
 
 # VERIFICADOR DE PUNTOS INSIGNIA
-@estatus_routes.route("/verificar_puntos_insignias", methods=["POST"])
-def verificar_puntos_insignias():
+@estatus_routes.route("/verificar_puntos_insignia", methods=["POST"])
+def verificar_puntos_insignia():
     try:
         required_fields = ['id_usuario', 'tipo_insignia', 'precio_insignia']
         if not request.json or not all(field in request.json for field in required_fields):
@@ -268,6 +267,65 @@ def verificar_puntos_sticker():
 
     except Exception as err:
         print(f"Error en verificar_puntos_sticker: {err}")  # Para debugging
+        return make_response(jsonify({
+            'status': 500,
+            'message': 'Error procesando la solicitud'
+        }), 500)
+
+
+# AUMENTAR EXPERIENCIA (PUNTOS DEL SISTEMA)
+@estatus_routes.route("/aumentar_experiencia", methods=["POST"])
+def aumentar_experiencia():
+    try:
+        required_fields = ['id_usuario', 'motivo']
+        if not request.json or not all(field in request.json for field in required_fields):
+            return make_response(jsonify({
+                "message": "id_usuario y motivo son requeridos",
+                "status": 400
+            }), 400)
+
+        id_usuario = request.json.get('id_usuario')
+        motivo = request.json.get('motivo')
+
+        # Validar que no sean None o vacíos
+        if not id_usuario:
+            return make_response(jsonify({
+                "message": "id_usuario no puede ser None o vacío",
+                "status": 400
+            }), 400)
+
+        if motivo is None:
+            return make_response(jsonify({
+                "message": "motivo no puede ser None",
+                "status": 400
+            }), 400)
+
+        estatus = Estatus.query.filter_by(id_usuario=id_usuario).first()
+        if not estatus:
+            return make_response(jsonify({
+                "message": "Estatus no encontrado",
+                "status": 404
+            }), 404)
+        
+
+        if motivo == 1: # Desbloqueo de insignia
+            estatus.ptos_sistema += 30
+        elif motivo == 2: # Desbloqueo de certificado
+            estatus.ptos_sistema += 50
+        elif motivo == 3: # Desbloqueo de sticker 
+            estatus.ptos_sistema += 20
+
+        db.session.commit()
+
+        data = {
+            "message": "Puntos de experiencia aumentados exitosamente",
+            "status": 200
+        }
+
+        return make_response(jsonify(data), 200)
+
+    except Exception as err:
+        print(f"Error en aumentar_experiencia: {err}")  # Para debugging
         return make_response(jsonify({
             'status': 500,
             'message': 'Error procesando la solicitud'
