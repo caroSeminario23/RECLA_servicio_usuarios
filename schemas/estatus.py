@@ -1,9 +1,14 @@
 from utils.ma import ma
+from marshmallow import fields
 
 from models.estatus import Estatus
 
 # SCHEMAS
 class EstatusPerfilSchema(ma.SQLAlchemyAutoSchema):
+    id_usuario = fields.Int()
+    racha = fields.Int()
+    ptos_sistema = fields.Int()
+
     class Meta:
         model = Estatus
         fields = (
@@ -11,17 +16,13 @@ class EstatusPerfilSchema(ma.SQLAlchemyAutoSchema):
             'racha',
             'ptos_sistema'
         )
-
-'''class EstatusLoginSchema(ma.SQLAlchemyAutoSchema):
-    class Meta:
-        model = Estatus
-        fields = (
-            'id_usuario',
-            'logeo_hoy'
-        )
-        '''
+        load_instance = False
 
 class EstatusContadoresSchema(ma.SQLAlchemyAutoSchema):
+    n_compras = fields.Int()
+    n_ventas = fields.Int()
+    n_rec_educativos = fields.Int()
+    
     class Meta:
         model = Estatus
         fields = (
@@ -29,26 +30,12 @@ class EstatusContadoresSchema(ma.SQLAlchemyAutoSchema):
             'n_ventas',
             'n_rec_educativos'
         )
-
-'''
-class EstatusActividadSchema(ma.SQLAlchemyAutoSchema):
-    class Meta:
-        model = Estatus
-        fields = (
-            'id_usuario',
-            'activo_hoy'
-        ) '''
+        load_instance = False
 
 
 # INSTANCIAS DE SCHEMAS
 estatus_perfil_schema = EstatusPerfilSchema()
 estatus_perfiles_schema = EstatusPerfilSchema(many=True)
 
-#estatus_login_schema = EstatusLoginSchema()
-#estatus_logins_schema = EstatusLoginSchema(many=True)
-
 estatus_contadores_schema = EstatusContadoresSchema()
 estatus_contadores_varios_schema = EstatusContadoresSchema(many=True)
-
-#estatus_actividad_schema = EstatusActividadSchema()
-#estatus_actividades_schema = EstatusActividadSchema(many=True)

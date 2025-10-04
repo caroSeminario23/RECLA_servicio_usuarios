@@ -3,10 +3,10 @@ POST http://127.0.0.1:5000/usuario_routes/registro_ecoaprendiz
 Content-Type: application/json
 
 {
-    "email": "semivaldi@gmail.com",
+    "email": "isaproyectosfisi@gmail.com",
     "contrasena": "123456",
     "fec_nac": "2002-06-11",
-    "username": "eucalipto"
+    "username": "banano"
 }
 ###
 
@@ -15,7 +15,7 @@ POST http://127.0.0.1:5000/usuario_routes/login_ecoaprendiz
 Content-Type: application/json
 
 {
-    "email": "semivaldi@gmail.com",
+    "email": "isaproyectosfisi@gmail.com",
     "contrasena": "123456"
 }
 ###

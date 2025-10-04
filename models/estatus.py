@@ -7,44 +7,50 @@ class Estatus(db.Model):
     id_usuario = db.Column(
         db.Integer,
         db.ForeignKey('usuario.id_usuario'),
-        autoincrement=True,
         nullable=True,
         primary_key=True
     )
 
     racha = db.Column(
         db.Integer,
-        nullable=True
+        nullable=True,
+        default=0
     )
 
     activo_hoy = db.Column(
         db.Boolean,
-        nullable=True
+        nullable=True,
+        default=False
     )
 
     logeo_hoy = db.Column(
         db.Boolean,
-        nullable=True
+        nullable=True,
+        default=False
     )
 
     n_compras = db.Column(
         db.Integer,
-        nullable=True
+        nullable=True,
+        default=0
     )
 
     n_ventas = db.Column(
         db.Integer,
-        nullable=True
+        nullable=True,
+        default=0
     )
 
     n_rec_educativos = db.Column(
         db.Integer,
-        nullable=True
+        nullable=True,
+        default=0
     )
 
     ptos_sistema = db.Column(
         db.Integer,
-        nullable=True
+        nullable=True,
+        default=0
     )
 
     # Objeto

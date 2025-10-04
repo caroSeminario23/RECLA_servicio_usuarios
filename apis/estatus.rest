@@ -3,7 +3,7 @@ POST http://127.0.0.1:5000/estatus_routes/estatus_perfil
 Content-Type: application/json
 
 {
-    "id_usuario": 1
+    "id_usuario": 7
 }
 ###
 
@@ -12,7 +12,7 @@ POST http://127.0.0.1:5000/estatus_routes/estatus_contadores
 Content-Type: application/json
 
 {
-    "id_usuario": 1
+    "id_usuario": 7
 }
 ###
 
@@ -21,7 +21,7 @@ POST http://127.0.0.1:5000/estatus_routes/registrar_actividad
 Content-Type: application/json
 
 {
-    "id_usuario": 1
+    "id_usuario": 7
 }
 ###
 
@@ -30,7 +30,7 @@ POST http://127.0.0.1:5000/estatus_routes/verificar_puntos_insignia
 Content-Type: application/json
 
 {
-    "id_usuario": 1,
+    "id_usuario": 7,
     "tipo_insignia": 1,
     "precio_insignia": 3
 }
@@ -41,7 +41,7 @@ POST http://127.0.0.1:5000/estatus_routes/verificar_puntos_sticker
 Content-Type: application/json
 
 {
-    "id_usuario": 1,
+    "id_usuario": 7,
     "precio_sticker": 50
 }
 ###
@@ -51,7 +51,7 @@ POST http://127.0.0.1:5000/estatus_routes/aumentar_experiencia
 Content-Type: application/json
 
 {
-    "id_usuario": 1,
+    "id_usuario": 7,
     "motivo": 1
 }
 ###

@@ -251,8 +251,10 @@ def verificar_puntos_sticker():
             }), 404)
         
         if estatus.ptos_sistema >= precio_sticker:
+            estatus.ptos_sistema -= precio_sticker
+            db.session.commit()
             data = {
-                "message": "Usuario califica para obtener el sticker",
+                "message": "Usuario califica para obtener el sticker y se han descontado los puntos",
                 "status": 200
             }
 
@@ -313,7 +315,7 @@ def aumentar_experiencia():
         elif motivo == 2: # Desbloqueo de certificado
             estatus.ptos_sistema += 50
         elif motivo == 3: # Desbloqueo de sticker 
-            estatus.ptos_sistema += 20
+            estatus.ptos_sistema += 5
 
         db.session.commit()
 
