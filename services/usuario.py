@@ -198,3 +198,41 @@ def obtener_username_vendedor():
     }
 
     return make_response(jsonify(data), 200)
+
+
+# OBTENER EMAIL DEL USUARIO
+@usuario_routes.route("/obtener_email_usuario", methods=["POST"])
+def obtener_email_usuario():
+    try:
+        required_fields = ['id_usuario']
+        if not request.json or not all(field in request.json for field in required_fields):
+            return make_response(jsonify({
+                'status': 400,
+                'message': 'id_usuario es requerido'
+            }), 400)
+
+        id_usuario = request.json.get('id_usuario')
+
+        usuario_email = Usuario.query.filter_by(id_usuario=id_usuario).first().email
+
+        if not usuario_email:
+            return make_response(jsonify({
+                'status': 404,
+                'message': 'Usuario no encontrado'
+            }), 404)
+
+        data = {
+            'status': 200,
+            'message': 'Email obtenido exitosamente',
+            'data': {
+                'email': usuario_email
+            }
+        }
+        return make_response(jsonify(data), 200)
+
+    except Exception as e:
+        return make_response(jsonify({
+            'status': 500,
+            'message': 'Error interno del servidor',
+            'error': str(e)
+        }), 500)

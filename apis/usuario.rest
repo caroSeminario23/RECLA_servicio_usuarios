@@ -20,7 +20,7 @@ Content-Type: application/json
 }
 ###
 
-# VERIFICAN EMAIL
+# VERIFICAR EMAIL
 POST http://127.0.0.1:5000/usuario_routes/verificar_email
 Content-Type: application/json
 
@@ -38,7 +38,7 @@ Content-Type: application/json
 }
 ###
 
-# OBTENER VENDEDOR POR ID
+# OBTENER USERNAME DE VENDEDOR POR ID
 POST http://127.0.0.1:5000/usuario_routes/obtener_username_vendedor
 Content-Type: application/json
 
