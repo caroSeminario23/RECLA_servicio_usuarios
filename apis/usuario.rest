@@ -46,3 +46,12 @@ Content-Type: application/json
     "id_usuario": 2
 }
 ###
+
+# OBTENER EMAIL DEL USUARIO
+POST http://127.0.0.1:5000/usuario_routes/obtener_email_usuario
+Content-Type: application/json
+
+{
+    "id_usuario": 7
+}
+###
