@@ -12,7 +12,6 @@ class EstatusPerfilSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Estatus
         fields = (
-            'id_usuario',
             'racha',
             'ptos_sistema'
         )
