@@ -8,6 +8,7 @@ from config import DATABASE_CONNECTION
 
 from services.usuario import usuario_routes
 from services.estatus import estatus_routes
+from services.tabla_clasificacion import tabla_clasificacion_routes
 
 app = Flask(__name__)
 
@@ -25,6 +26,7 @@ db.init_app(app)
 
 app.register_blueprint(usuario_routes, url_prefix='/usuario_routes')
 app.register_blueprint(estatus_routes, url_prefix='/estatus_routes')
+app.register_blueprint(tabla_clasificacion_routes, url_prefix='/tabla_clasificacion_routes')
 
 with app.app_context():
     db.create_all()
