@@ -328,6 +328,7 @@ def verificar_puntos_sticker():
     try:
         logger.info("Solicitud de verificación de puntos sticker recibida")
         required_fields = ['id_usuario', 'precio_sticker']
+
         if not request.json or not all(field in request.json for field in required_fields):
             logger.warning("Solicitud incompleta en verificar_puntos_sticker")
             return make_response(jsonify({
@@ -355,7 +356,13 @@ def verificar_puntos_sticker():
                 "status": 400
             }), 400)
 
-        estatus = Estatus.query.filter_by(id_usuario=id_usuario).first()
+        #estatus = Estatus.query.filter_by(id_usuario=id_usuario).first()
+        estatus = db.session.execute(text("""
+            SELECT ptos_sistema 
+            FROM estatus 
+            WHERE id_usuario = :id_usuario
+        """), {'id_usuario': id_usuario}).first()
+
         if not estatus:
             tiempo_respuesta = time.time() - inicio_tiempo
             logger.warning(f"Estatus no encontrado para usuario: {id_usuario}. Tiempo: {tiempo_respuesta:.2f}s")
@@ -364,10 +371,25 @@ def verificar_puntos_sticker():
                 "status": 404
             }), 404)
         
+        tiempo_respuesta = time.time() - inicio_tiempo
+        
         if estatus.ptos_sistema >= precio_sticker:
-            estatus.ptos_sistema -= precio_sticker
-            db.session.commit()
+            #estatus.ptos_sistema -= precio_sticker
+            #db.session.commit()
             logger.info(f"Usuario {id_usuario} califica para sticker. Puntos descontados: {precio_sticker}. Tiempo: {tiempo_respuesta:.2f}s")
+            
+            query_update = text(f"""
+                UPDATE estatus
+                SET ptos_sistema = ptos_sistema - :precio_sticker
+                WHERE id_usuario = :id_usuario
+            """)
+            db.session.execute(query_update, {
+                'precio_sticker': precio_sticker,
+                'id_usuario': id_usuario
+            })
+            db.session.commit()
+            logger.info(f"Puntos descontados: {precio_sticker} para usuario {id_usuario}. Tiempo: {tiempo_respuesta:.2f}s")
+
             data = {
                 "message": "Usuario califica para obtener el sticker y se han descontado los puntos",
                 "status": 200
@@ -384,6 +406,7 @@ def verificar_puntos_sticker():
             return make_response(jsonify(data), 400)
 
     except Exception as err:
+        db.session.rollback()
         tiempo_respuesta = time.time() - inicio_tiempo
         logger.error(f"Error en verificar_puntos_sticker: {err}. Tiempo: {tiempo_respuesta:.2f}s")
         return make_response(jsonify({
