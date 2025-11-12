@@ -2,6 +2,7 @@ from flask import Blueprint, request, jsonify, make_response
 from marshmallow import ValidationError
 from sqlalchemy.exc import IntegrityError
 import time
+from sqlalchemy import text
 
 from utils.db import db
 from utils.logger import get_logger
@@ -125,10 +126,19 @@ def login_ecoaprendiz():
 
     if estatus:
         try:
+            # 1. LLAMAMOS A LA FUNCIÓN DE RESETEO DIARIO
+            # Esto se ejecutará en la misma transacción
+            logger.debug("Ejecutando verificación de reseteo diario...")
+            db.session.execute(text("SELECT fn_verificar_reinicio()"))
+            
+            # 2. AHORA ACTUALIZAMOS EL ESTATUS DEL USUARIO ACTUAL
             logger.debug(f"Actualizando estatus de logeo para usuario ID: {usuario.id_usuario}")
             estatus.logeo_hoy = True
+
+            # 3. HACEMOS COMMIT DE AMBAS OPERACIONES
             db.session.commit()
             logger.info(f"Estatus de logeo actualizado para usuario ID: {usuario.id_usuario}")
+            
         except IntegrityError as e:
             db.session.rollback()
             logger.error(f"Error al actualizar estatus de logeo para usuario ID: {usuario.id_usuario}: {e}")
