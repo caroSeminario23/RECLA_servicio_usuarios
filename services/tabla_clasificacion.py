@@ -42,7 +42,7 @@ def get_tabla_clasificacion():
         resultado = usuarios_clasificacion_schema.dump(resultado_raw)
 
         tiempo_respuesta = time.time() - inicio_tiempo
-        logger.info(f"Tabla de clasificación obtenida exitosamente. Usuarios en ranking: {len(resultado)}. Tiempo: {tiempo_respuesta:.2f}s")
+        logger.info(f"Tabla de clasificación obtenida exitosamente. Usuarios en ranking: {len(resultado)}. Tiempo: {tiempo_respuesta:.3f}s")
 
         data = {
             "message": "Tabla de clasificación obtenida exitosamente",
@@ -54,7 +54,7 @@ def get_tabla_clasificacion():
 
     except Exception as err:
         tiempo_respuesta = time.time() - inicio_tiempo
-        logger.error(f"Error en get_tabla_clasificacion: {err}. Tiempo: {tiempo_respuesta:.2f}s")
+        logger.error(f"Error en get_tabla_clasificacion: {err}. Tiempo: {tiempo_respuesta:.3f}s")
         return make_response(jsonify({
             'status': 500,
             'message': 'Error procesando la solicitud'

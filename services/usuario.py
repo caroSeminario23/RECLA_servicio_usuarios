@@ -81,7 +81,7 @@ def registro_ecoaprendiz():
         }), 500)
 
     tiempo_respuesta = time.time() - inicio_tiempo
-    logger.info(f"Registro de ecoaprendiz completado exitosamente. Usuario: {username}. Tiempo: {tiempo_respuesta:.2f}s")
+    logger.info(f"Registro de ecoaprendiz completado exitosamente. Usuario: {username}. Tiempo: {tiempo_respuesta:.3f}s")
 
     data = {
         "message": "Registro de ecoaprendiz exitoso",
@@ -111,7 +111,7 @@ def login_ecoaprendiz():
 
     if not usuario or not verificar_contrasena(contrasena, usuario.contrasena):
         tiempo_respuesta = time.time() - inicio_tiempo
-        logger.warning(f"Intento de login fallido para email: {email}. Tiempo: {tiempo_respuesta:.2f}s")
+        logger.warning(f"Intento de login fallido para email: {email}. Tiempo: {tiempo_respuesta:.3f}s")
         data = {
             "message": "Credenciales inválidas",
             "status": 401
@@ -148,7 +148,7 @@ def login_ecoaprendiz():
             }), 500)
 
     tiempo_respuesta = time.time() - inicio_tiempo
-    logger.info(f"Proceso de login completado exitosamente. Usuario ID: {usuario.id_usuario}. Tiempo: {tiempo_respuesta:.2f}s")
+    logger.info(f"Proceso de login completado exitosamente. Usuario ID: {usuario.id_usuario}. Tiempo: {tiempo_respuesta:.3f}s")
 
     data = {
         "message": "Inicio de sesión exitoso",
@@ -179,14 +179,14 @@ def verificar_email():
     tiempo_respuesta = time.time() - inicio_tiempo
 
     if usuario:
-        logger.info(f"Email {email} ya está en uso. Tiempo: {tiempo_respuesta:.2f}s")
+        logger.info(f"Email {email} ya está en uso. Tiempo: {tiempo_respuesta:.3f}s")
         data = {
             "message": "El email ya está en uso",
             "status": 409
         }
         return make_response(jsonify(data), 409)
 
-    logger.info(f"Email {email} está disponible. Tiempo: {tiempo_respuesta:.2f}s")
+    logger.info(f"Email {email} está disponible. Tiempo: {tiempo_respuesta:.3f}s")
     data = {
         "message": "El email está disponible",
         "status": 200
@@ -215,14 +215,14 @@ def verificar_username():
     tiempo_respuesta = time.time() - inicio_tiempo
 
     if usuario:
-        logger.info(f"Username {username} ya está en uso. Tiempo: {tiempo_respuesta:.2f}s")
+        logger.info(f"Username {username} ya está en uso. Tiempo: {tiempo_respuesta:.3f}s")
         data = {
             "message": "El username ya está en uso",
             "status": 409
         }
         return make_response(jsonify(data), 409)
 
-    logger.info(f"Username {username} está disponible. Tiempo: {tiempo_respuesta:.2f}s")
+    logger.info(f"Username {username} está disponible. Tiempo: {tiempo_respuesta:.3f}s")
     data = {
         "message": "El username está disponible",
         "status": 200
@@ -251,14 +251,14 @@ def obtener_username_vendedor():
     tiempo_respuesta = time.time() - inicio_tiempo
 
     if not usuario:
-        logger.warning(f"Vendedor no encontrado para ID: {id_usuario}. Tiempo: {tiempo_respuesta:.2f}s")
+        logger.warning(f"Vendedor no encontrado para ID: {id_usuario}. Tiempo: {tiempo_respuesta:.3f}s")
         data = {
             "message": "Vendedor no encontrado",
             "status": 404
         }
         return make_response(jsonify(data), 404)
 
-    logger.info(f"Vendedor encontrado: ID {id_usuario}, username: {usuario.username}. Tiempo: {tiempo_respuesta:.2f}s")
+    logger.info(f"Vendedor encontrado: ID {id_usuario}, username: {usuario.username}. Tiempo: {tiempo_respuesta:.3f}s")
     resultado = vendedor_response_schema.dump(usuario)
 
     data = {
@@ -291,14 +291,14 @@ def obtener_email_usuario():
 
         if not usuario_email:
             tiempo_respuesta = time.time() - inicio_tiempo
-            logger.warning(f"Usuario no encontrado para ID: {id_usuario}. Tiempo: {tiempo_respuesta:.2f}s")
+            logger.warning(f"Usuario no encontrado para ID: {id_usuario}. Tiempo: {tiempo_respuesta:.3f}s")
             return make_response(jsonify({
                 'status': 404,
                 'message': 'Usuario no encontrado'
             }), 404)
         
         tiempo_respuesta = time.time() - inicio_tiempo
-        logger.info(f"Email obtenido exitosamente para usuario ID: {id_usuario}. Tiempo: {tiempo_respuesta:.2f}s")
+        logger.info(f"Email obtenido exitosamente para usuario ID: {id_usuario}. Tiempo: {tiempo_respuesta:.3f}s")
 
         data = {
             'status': 200,
@@ -311,7 +311,7 @@ def obtener_email_usuario():
 
     except Exception as e:
         tiempo_respuesta = time.time() - inicio_tiempo
-        logger.error(f"Error en obtener_email_usuario: {e}. Tiempo: {tiempo_respuesta:.2f}s")
+        logger.error(f"Error en obtener_email_usuario: {e}. Tiempo: {tiempo_respuesta:.3f}s")
         return make_response(jsonify({
             'status': 500,
             'message': 'Error interno del servidor',
