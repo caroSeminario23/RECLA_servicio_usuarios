@@ -41,7 +41,7 @@ def mostrar_estatus_perfil():
         estatus = Estatus.query.filter_by(id_usuario=id_usuario).first()
         if not estatus:
             tiempo_respuesta = time.time() - inicio_tiempo
-            logger.warning(f"Estatus no encontrado para usuario: {id_usuario} - Tiempo de respuesta: {tiempo_respuesta:.2f} segundos")
+            logger.warning(f"Estatus no encontrado para usuario: {id_usuario} - Tiempo de respuesta: {tiempo_respuesta:.3f} segundos")
             return make_response(jsonify({
                 "message": "Estatus no encontrado",
                 "status": 404
@@ -49,7 +49,7 @@ def mostrar_estatus_perfil():
         
         resultado = estatus_perfil_schema.dump(estatus)
         tiempo_respuesta = time.time() - inicio_tiempo
-        logger.info(f"Estatus de perfil obtenido exitosamente para usuario: {id_usuario}. Tiempo: {tiempo_respuesta:.2f}s")
+        logger.info(f"Estatus de perfil obtenido exitosamente para usuario: {id_usuario}. Tiempo: {tiempo_respuesta:.3f}s")
 
         data = {
             "message": "Estatus de perfil obtenido exitosamente",
@@ -61,7 +61,7 @@ def mostrar_estatus_perfil():
     
     except Exception as err:
         tiempo_respuesta = time.time() - inicio_tiempo
-        logger.error(f"Error en mostrar_estatus_perfil: {err}. Tiempo: {tiempo_respuesta:.2f}s")
+        logger.error(f"Error en mostrar_estatus_perfil: {err}. Tiempo: {tiempo_respuesta:.3f}s")
         return make_response(jsonify({
             'status': 500,
             'message': 'Error procesando la solicitud'
@@ -96,7 +96,7 @@ def mostrar_estatus_contadores():
         estatus = Estatus.query.filter_by(id_usuario=id_usuario).first()
         if not estatus:
             tiempo_respuesta = time.time() - inicio_tiempo
-            logger.warning(f"Contadores no encontrados para usuario: {id_usuario}. Tiempo: {tiempo_respuesta:.2f}s")
+            logger.warning(f"Contadores no encontrados para usuario: {id_usuario}. Tiempo: {tiempo_respuesta:.3f}s")
             return make_response(jsonify({
                 "message": "Estatus no encontrado",
                 "status": 404
@@ -104,7 +104,7 @@ def mostrar_estatus_contadores():
 
         resultado = estatus_contadores_schema.dump(estatus)
         tiempo_respuesta = time.time() - inicio_tiempo
-        logger.info(f"Contadores obtenidos exitosamente para usuario: {id_usuario}. Tiempo: {tiempo_respuesta:.2f}s")
+        logger.info(f"Contadores obtenidos exitosamente para usuario: {id_usuario}. Tiempo: {tiempo_respuesta:.3f}s")
 
         data = {
             "message": "Estatus de contadores obtenido exitosamente",
@@ -116,7 +116,7 @@ def mostrar_estatus_contadores():
 
     except Exception as err:
         tiempo_respuesta = time.time() - inicio_tiempo
-        logger.error(f"Error en mostrar_estatus_contadores: {err}. Tiempo: {tiempo_respuesta:.2f}s")
+        logger.error(f"Error en mostrar_estatus_contadores: {err}. Tiempo: {tiempo_respuesta:.3f}s")
         return make_response(jsonify({
             'status': 500,
             'message': 'Error procesando la solicitud'
@@ -151,7 +151,7 @@ def registrar_actividad():
         estatus = Estatus.query.filter_by(id_usuario=id_usuario).first()
         if not estatus:
             tiempo_respuesta = time.time() - inicio_tiempo
-            logger.warning(f"Estatus no encontrado para registrar actividad - usuario: {id_usuario}. Tiempo: {tiempo_respuesta:.2f}s")
+            logger.warning(f"Estatus no encontrado para registrar actividad - usuario: {id_usuario}. Tiempo: {tiempo_respuesta:.3f}s")
             return make_response(jsonify({
                 "message": "Estatus no encontrado",
                 "status": 404
@@ -161,10 +161,10 @@ def registrar_actividad():
             estatus.activo_hoy = True
             db.session.commit()
             tiempo_respuesta = time.time() - inicio_tiempo
-            logger.info(f"Actividad diaria registrada para usuario: {id_usuario}. Tiempo: {tiempo_respuesta:.2f}s")
+            logger.info(f"Actividad diaria registrada para usuario: {id_usuario}. Tiempo: {tiempo_respuesta:.3f}s")
         else:
             tiempo_respuesta = time.time() - inicio_tiempo
-            logger.debug(f"Usuario {id_usuario} ya tenía actividad registrada hoy. Tiempo: {tiempo_respuesta:.2f}s")
+            logger.debug(f"Usuario {id_usuario} ya tenía actividad registrada hoy. Tiempo: {tiempo_respuesta:.3f}s")
 
         data = {
             "message": "Actividad registrada exitosamente",
@@ -175,7 +175,7 @@ def registrar_actividad():
 
     except Exception as err:
         tiempo_respuesta = time.time() - inicio_tiempo
-        logger.error(f"Error en registrar_actividad: {err}. Tiempo: {tiempo_respuesta:.2f}s")
+        logger.error(f"Error en registrar_actividad: {err}. Tiempo: {tiempo_respuesta:.3f}s")
         return make_response(jsonify({
             'status': 500,
             'message': 'Error procesando la solicitud'
@@ -235,7 +235,7 @@ def verificar_puntos_insignia():
 
         if not estatus:
             tiempo_respuesta = time.time() - inicio_tiempo
-            logger.warning(f"Estatus no encontrado para verificar insignia - usuario: {id_usuario}. Tiempo: {tiempo_respuesta:.2f}s")
+            logger.warning(f"Estatus no encontrado para verificar insignia - usuario: {id_usuario}. Tiempo: {tiempo_respuesta:.3f}s")
             return make_response(jsonify({
                 "message": "Estatus no encontrado",
                 "status": 404
@@ -258,7 +258,7 @@ def verificar_puntos_insignia():
             logger.debug(f"Usuario {id_usuario} tiene {contador} recursos educativos")
         else:
             tiempo_respuesta = time.time() - inicio_tiempo
-            logger.warning(f"Tipo de insignia inválido ({tipo_insignia}) para usuario {id_usuario}. Tiempo: {tiempo_respuesta:.2f}s")
+            logger.warning(f"Tipo de insignia inválido ({tipo_insignia}) para usuario {id_usuario}. Tiempo: {tiempo_respuesta:.3f}s")
             return make_response(jsonify({
                 "message": "Tipo de insignia inválido",
                 "status": 400
@@ -293,7 +293,7 @@ def verificar_puntos_insignia():
                 'id_usuario': id_usuario
             })
             db.session.commit()
-            logger.info(f"Puntos descontados: {precio_insignia} para usuario {id_usuario}. Tiempo: {tiempo_respuesta:.2f}s")
+            logger.info(f"Puntos descontados: {precio_insignia} para usuario {id_usuario}. Tiempo: {tiempo_respuesta:.3f}s")
 
             data = {
                 "message": "Usuario califica para obtener la insignia",
@@ -314,7 +314,7 @@ def verificar_puntos_insignia():
     except Exception as err:
         db.session.rollback()
         tiempo_respuesta = time.time() - inicio_tiempo
-        logger.error(f"Error en verificar_puntos_insignias: {err}. Tiempo: {tiempo_respuesta:.2f}s")
+        logger.error(f"Error en verificar_puntos_insignias: {err}. Tiempo: {tiempo_respuesta:.3f}s")
         return make_response(jsonify({
             'status': 500,
             'message': 'Error procesando la solicitud'
@@ -365,7 +365,7 @@ def verificar_puntos_sticker():
 
         if not estatus:
             tiempo_respuesta = time.time() - inicio_tiempo
-            logger.warning(f"Estatus no encontrado para usuario: {id_usuario}. Tiempo: {tiempo_respuesta:.2f}s")
+            logger.warning(f"Estatus no encontrado para usuario: {id_usuario}. Tiempo: {tiempo_respuesta:.3f}s")
             return make_response(jsonify({
                 "message": "Estatus no encontrado",
                 "status": 404
@@ -376,7 +376,7 @@ def verificar_puntos_sticker():
         if estatus.ptos_sistema >= precio_sticker:
             #estatus.ptos_sistema -= precio_sticker
             #db.session.commit()
-            logger.info(f"Usuario {id_usuario} califica para sticker. Puntos descontados: {precio_sticker}. Tiempo: {tiempo_respuesta:.2f}s")
+            logger.info(f"Usuario {id_usuario} califica para sticker. Puntos descontados: {precio_sticker}. Tiempo: {tiempo_respuesta:.3f}s")
             
             query_update = text(f"""
                 UPDATE estatus
@@ -388,7 +388,7 @@ def verificar_puntos_sticker():
                 'id_usuario': id_usuario
             })
             db.session.commit()
-            logger.info(f"Puntos descontados: {precio_sticker} para usuario {id_usuario}. Tiempo: {tiempo_respuesta:.2f}s")
+            logger.info(f"Puntos descontados: {precio_sticker} para usuario {id_usuario}. Tiempo: {tiempo_respuesta:.3f}s")
 
             data = {
                 "message": "Usuario califica para obtener el sticker y se han descontado los puntos",
@@ -397,7 +397,7 @@ def verificar_puntos_sticker():
 
             return make_response(jsonify(data), 200)
         else:
-            logger.info(f"Usuario {id_usuario} NO califica para sticker ({estatus.ptos_sistema} < {precio_sticker}). Tiempo: {tiempo_respuesta:.2f}s")
+            logger.info(f"Usuario {id_usuario} NO califica para sticker ({estatus.ptos_sistema} < {precio_sticker}). Tiempo: {tiempo_respuesta:.3f}s")
             data = {
                 "message": "Usuario no califica para obtener el sticker",
                 "status": 400
@@ -408,7 +408,7 @@ def verificar_puntos_sticker():
     except Exception as err:
         db.session.rollback()
         tiempo_respuesta = time.time() - inicio_tiempo
-        logger.error(f"Error en verificar_puntos_sticker: {err}. Tiempo: {tiempo_respuesta:.2f}s")
+        logger.error(f"Error en verificar_puntos_sticker: {err}. Tiempo: {tiempo_respuesta:.3f}s")
         return make_response(jsonify({
             'status': 500,
             'message': 'Error procesando la solicitud'
@@ -460,7 +460,7 @@ def aumentar_experiencia():
 
         if not estatus:
             tiempo_respuesta = time.time() - inicio_tiempo
-            logger.warning(f"Estatus no encontrado para usuario: {id_usuario}. Tiempo: {tiempo_respuesta:.2f}s")
+            logger.warning(f"Estatus no encontrado para usuario: {id_usuario}. Tiempo: {tiempo_respuesta:.3f}s")
             return make_response(jsonify({
                 "message": "Estatus no encontrado",
                 "status": 404
@@ -477,7 +477,7 @@ def aumentar_experiencia():
             puntos_agregados = 5
         else:
             tiempo_respuesta = time.time() - inicio_tiempo
-            logger.warning(f"Motivo inválido ({motivo}) en aumentar_experiencia para usuario {id_usuario}. Tiempo: {tiempo_respuesta:.2f}s")
+            logger.warning(f"Motivo inválido ({motivo}) en aumentar_experiencia para usuario {id_usuario}. Tiempo: {tiempo_respuesta:.3f}s")
             return make_response(jsonify({
                 "message": "Motivo inválido",
                 "status": 400
@@ -497,7 +497,7 @@ def aumentar_experiencia():
         db.session.commit()
 
         tiempo_respuesta = time.time() - inicio_tiempo
-        logger.info(f"Experiencia aumentada para usuario {id_usuario}. Puntos agregados: {puntos_agregados}. Puntos totales: {estatus.ptos_sistema}. Tiempo: {tiempo_respuesta:.2f}s")
+        logger.info(f"Experiencia aumentada para usuario {id_usuario}. Puntos agregados: {puntos_agregados}. Puntos totales: {estatus.ptos_sistema}. Tiempo: {tiempo_respuesta:.3f}s")
 
         data = {
             "message": "Puntos de experiencia aumentados exitosamente",
@@ -508,7 +508,7 @@ def aumentar_experiencia():
 
     except Exception as err:
         tiempo_respuesta = time.time() - inicio_tiempo
-        logger.error(f"Error en aumentar_experiencia: {err}. Tiempo: {tiempo_respuesta:.2f}s")
+        logger.error(f"Error en aumentar_experiencia: {err}. Tiempo: {tiempo_respuesta:.3f}s")
         return make_response(jsonify({
             'status': 500,
             'message': 'Error procesando la solicitud'
@@ -521,7 +521,7 @@ def aumentar_experiencia():
 def aumentar_experiencia_contadores():
     inicio_tiempo = time.time()
     try:
-        logger.info("Solicitud de aumento de experiencia y contadoresrecibida")
+        logger.info("Solicitud de aumento de experiencia y contadores recibida")
         required_fields = ['id_usuario', 'motivo']
         if not request.json or not all(field in request.json for field in required_fields):
             logger.warning("Solicitud incompleta en aumentar_experiencia_contadores")
@@ -553,7 +553,7 @@ def aumentar_experiencia_contadores():
         estatus = Estatus.query.filter_by(id_usuario=id_usuario).first()
         if not estatus:
             tiempo_respuesta = time.time() - inicio_tiempo
-            logger.warning(f"Estatus no encontrado para usuario: {id_usuario}. Tiempo: {tiempo_respuesta:.2f}s")
+            logger.warning(f"Estatus no encontrado para usuario: {id_usuario}. Tiempo: {tiempo_respuesta:.3f}s")
             return make_response(jsonify({
                 "message": "Estatus no encontrado",
                 "status": 404
@@ -569,16 +569,16 @@ def aumentar_experiencia_contadores():
             estatus.ptos_sistema += 5
             estatus.n_compras += 1
         elif motivo == 4: # Resolución de un recurso educativo
-            estatus.ptos_sistema += 10
+            #estatus.ptos_sistema += 10
             estatus.n_rec_educativos += 1
         else:
             tiempo_respuesta = time.time() - inicio_tiempo
-            logger.warning(f"Motivo inválido ({motivo}) en aumentar_experiencia_contadores para usuario {id_usuario}. Tiempo: {tiempo_respuesta:.2f}s")
+            logger.warning(f"Motivo inválido ({motivo}) en aumentar_experiencia_contadores para usuario {id_usuario}. Tiempo: {tiempo_respuesta:.3f}s")
 
         db.session.commit()
 
         tiempo_respuesta = time.time() - inicio_tiempo
-        logger.info(f"Experiencia aumentada para usuario {id_usuario}. Puntos agregados: {estatus.ptos_sistema}. Tiempo: {tiempo_respuesta:.2f}s")
+        logger.info(f"Experiencia aumentada para usuario {id_usuario}. Puntos agregados: {estatus.ptos_sistema}. Tiempo: {tiempo_respuesta:.3f}s")
 
         data = {
             "message": "Puntos de experiencia y contadores aumentados exitosamente",
@@ -589,7 +589,143 @@ def aumentar_experiencia_contadores():
 
     except Exception as err:
         tiempo_respuesta = time.time() - inicio_tiempo
-        logger.error(f"Error en aumentar_experiencia_contadores: {err}. Tiempo: {tiempo_respuesta:.2f}s")
+        logger.error(f"Error en aumentar_experiencia_contadores: {err}. Tiempo: {tiempo_respuesta:.3f}s")
+        return make_response(jsonify({
+            'status': 500,
+            'message': 'Error procesando la solicitud'
+        }), 500)
+    
+
+# AUMENTAR EXPERIENCIA POR RECURSOS EDUCATIVOS
+@estatus_routes.route("/aumentar_experiencia_recursos_educativos", methods=["POST"])
+def aumentar_experiencia_recursos_educativos():
+    inicio_tiempo = time.time()
+
+    try:
+        required_fields = ['id_usuario', 'ptos_experiencia']
+        if not request.json or not all(field in request.json for field in required_fields):
+            logger.warning("Solicitud incompleta en aumentar_experiencia_recursos_educativos")
+            return make_response(jsonify({
+                "message": "id_usuario y ptos_experiencia son requeridos",
+                "status": 400
+            }), 400)
+
+        id_usuario = request.json.get('id_usuario')
+        ptos_experiencia = request.json.get('ptos_experiencia')
+
+        logger.info(f"Aumentando experiencia por recursos educativos para usuario {id_usuario}, puntos: {ptos_experiencia}")
+
+        # Validar que no sean None o vacíos
+        if not id_usuario:
+            logger.warning("id_usuario vacío en aumentar_experiencia_recursos_educativos")
+            return
+
+        if ptos_experiencia is None:
+            logger.warning(f"ptos_experiencia None para usuario {id_usuario} en aumentar_experiencia_recursos_educativos")
+            return
+
+        estatus = Estatus.query.filter_by(id_usuario=id_usuario).first()
+        if not estatus:
+            logger.warning(f"Estatus no encontrado para usuario: {id_usuario} en aumentar_experiencia_recursos_educativos")
+            return
+
+        estatus.ptos_sistema += ptos_experiencia
+        db.session.commit()
+
+        tiempo_respuesta = time.time() - inicio_tiempo
+        logger.info(f"Experiencia aumentada para usuario {id_usuario} por recursos educativos. Puntos agregados: {ptos_experiencia}. Tiempo: {tiempo_respuesta:.3f}s")
+
+        data = {
+            "message": "Puntos de experiencia aumentados exitosamente",
+            "status": 200
+        }
+
+        return make_response(jsonify(data), 200)
+
+    except Exception as err:
+        tiempo_respuesta = time.time() - inicio_tiempo
+        logger.error(f"Error en aumentar_experiencia_contadores: {err}. Tiempo: {tiempo_respuesta:.3f}s")
+        db.session.rollback()
+        return make_response(jsonify({
+            'status': 500,
+            'message': 'Error procesando la solicitud'
+        }), 500)
+
+
+# AUMENTAR CONTADORES
+@estatus_routes.route("/aumentar_contador", methods=["POST"])
+def aumentar_contadores():
+    inicio_tiempo = time.time()
+    try:
+        logger.info("Solicitud de aumento de contador recibida")
+        required_fields = ['id_usuario', 'motivo']
+        if not request.json or not all(field in request.json for field in required_fields):
+            logger.warning("Solicitud incompleta en aumentar_contadores")
+            return make_response(jsonify({
+                "message": "id_usuario y motivo son requeridos",
+                "status": 400
+            }), 400)
+
+        id_usuario = request.json.get('id_usuario')
+        motivo = request.json.get('motivo')
+
+        logger.debug(f"Procesando aumento de contador para usuario {id_usuario}, motivo: {motivo}")
+
+        # Validar que no sean None o vacíos
+        if not id_usuario:
+            logger.warning("id_usuario vacío en aumentar_contadores")
+            return make_response(jsonify({
+                "message": "id_usuario no puede ser None o vacío",
+                "status": 400
+            }), 400)
+
+        if motivo is None:
+            logger.warning(f"motivo None para usuario {id_usuario} en aumentar_experiencia_contadores")
+            return make_response(jsonify({
+                "message": "motivo no puede ser None",
+                "status": 400
+            }), 400)
+
+        estatus = Estatus.query.filter_by(id_usuario=id_usuario).first()
+        if not estatus:
+            tiempo_respuesta = time.time() - inicio_tiempo
+            logger.warning(f"Estatus no encontrado para usuario: {id_usuario}. Tiempo: {tiempo_respuesta:.3f}s")
+            return make_response(jsonify({
+                "message": "Estatus no encontrado",
+                "status": 404
+            }), 404)
+        
+
+        '''
+        1: VENDER PRODUCTO (PUBLICAR PRODUCTO)
+        2: COMPRAR PRODUCTO
+        3: RESOLVER RECURSO EDUCATIVO
+        '''
+        if motivo == 1:
+            estatus.n_ventas += 1
+        elif motivo == 2:
+            estatus.n_compras += 1
+        elif motivo == 3: 
+            estatus.n_rec_educativos += 1
+        else:
+            tiempo_respuesta = time.time() - inicio_tiempo
+            logger.warning(f"Motivo inválido ({motivo}) en aumentar_experiencia_contadores para usuario {id_usuario}. Tiempo: {tiempo_respuesta:.3f}s")
+
+        db.session.commit()
+
+        tiempo_respuesta = time.time() - inicio_tiempo
+        logger.info(f"Experiencia aumentada para usuario {id_usuario}. Puntos agregados: {estatus.ptos_sistema}. Tiempo: {tiempo_respuesta:.3f}s")
+
+        data = {
+            "message": "Contador aumentado exitosamente",
+            "status": 200
+        }
+
+        return make_response(jsonify(data), 200)
+
+    except Exception as err:
+        tiempo_respuesta = time.time() - inicio_tiempo
+        logger.error(f"Error en aumentar_experiencia_contadores: {err}. Tiempo: {tiempo_respuesta:.3f}s")
         return make_response(jsonify({
             'status': 500,
             'message': 'Error procesando la solicitud'

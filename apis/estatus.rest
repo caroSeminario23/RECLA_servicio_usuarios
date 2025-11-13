@@ -55,3 +55,14 @@ Content-Type: application/json
     "motivo": 1
 }
 ###
+
+
+# AUMENTAR CONTADOR
+POST http://127.0.0.1:5000/estatus_routes/aumentar_contador
+Content-Type: application/json
+
+{
+    "id_usuario": 7,
+    "motivo": 1
+}
+###
