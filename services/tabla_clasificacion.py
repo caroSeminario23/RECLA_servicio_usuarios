@@ -22,15 +22,22 @@ def get_tabla_clasificacion():
 
         consulta_clasificacion = """
         SELECT
-            ROW_NUMBER() OVER (ORDER BY COALESCE(E.ptos_sistema,0) DESC) AS posicion,
-            U.id_usuario,
-            U.username,
-            E.ptos_sistema
-        FROM USUARIO as U
-        LEFT JOIN ESTATUS as E
-            ON U.id_usuario = E.id_usuario
-        ORDER BY E.ptos_sistema DESC
-        LIMIT 8;
+            ROW_NUMBER() OVER (ORDER BY COALESCE(ptos_sistema,0) DESC, username ASC) AS posicion,
+            id_usuario,
+            username,
+            COALESCE(ptos_sistema, 0) as ptos_sistema
+        FROM (
+            SELECT
+                U.id_usuario,
+                U.username,
+                COALESCE(E.ptos_sistema, 0) as ptos_sistema
+            FROM USUARIO as U
+            LEFT JOIN ESTATUS as E
+                ON U.id_usuario = E.id_usuario
+            ORDER BY COALESCE(E.ptos_sistema, 0) DESC, U.username ASC
+            LIMIT 8
+        ) as top_usuarios
+        ORDER BY posicion ASC;
         """
 
         logger.debug("Ejecutando consulta de tabla de clasificación")
