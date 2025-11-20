@@ -175,6 +175,7 @@ def registrar_actividad():
 
     except Exception as err:
         tiempo_respuesta = time.time() - inicio_tiempo
+        db.session.rollback()
         logger.error(f"Error en registrar_actividad: {err}. Tiempo: {tiempo_respuesta:.3f}s")
         return make_response(jsonify({
             'status': 500,
@@ -517,14 +518,14 @@ def aumentar_experiencia():
 
 
 # AUMENTAR EXPERIENCIA (PUNTOS DEL SISTEMA) POR COMPRAS, VENTAS Y RECURSOS EDUCATIVOS Y CONTADORES DE LOS MISMOS
-@estatus_routes.route("/aumentar_experiencia_contadores", methods=["POST"])
-def aumentar_experiencia_contadores():
+@estatus_routes.route("/aumentar_experiencia_compra_venta", methods=["POST"])
+def aumentar_experiencia_compra_venta():
     inicio_tiempo = time.time()
     try:
-        logger.info("Solicitud de aumento de experiencia y contadores recibida")
-        required_fields = ['id_usuario', 'motivo']
+        logger.info("Solicitud de aumento de experiencia recibida")
+        required_fields = ['id_usuario', 'motivo'] # 1: Venta de producto, 2: Compra de producto
         if not request.json or not all(field in request.json for field in required_fields):
-            logger.warning("Solicitud incompleta en aumentar_experiencia_contadores")
+            logger.warning("Solicitud incompleta en aumentar_experiencia_compra_venta")
             return make_response(jsonify({
                 "message": "id_usuario y motivo son requeridos",
                 "status": 400
@@ -537,7 +538,7 @@ def aumentar_experiencia_contadores():
 
         # Validar que no sean None o vacíos
         if not id_usuario:
-            logger.warning("id_usuario vacío en aumentar_experiencia_contadores")
+            logger.warning("id_usuario vacío en aumentar_experiencia_compra_venta")
             return make_response(jsonify({
                 "message": "id_usuario no puede ser None o vacío",
                 "status": 400
@@ -560,20 +561,13 @@ def aumentar_experiencia_contadores():
             }), 404)
         
 
-        if motivo == 1: # Venta de un producto (ofertado, no comprado)
+        if motivo == 1: # Venta de un producto
             estatus.ptos_sistema += 100
-            estatus.n_ventas += 1
-        elif motivo == 2: # Venta de un producto (comprado)
+        elif motivo == 2: # Compra de un producto
             estatus.ptos_sistema += 50
-        elif motivo == 3: # Compra de un producto 
-            estatus.ptos_sistema += 5
-            estatus.n_compras += 1
-        elif motivo == 4: # Resolución de un recurso educativo
-            #estatus.ptos_sistema += 10
-            estatus.n_rec_educativos += 1
         else:
             tiempo_respuesta = time.time() - inicio_tiempo
-            logger.warning(f"Motivo inválido ({motivo}) en aumentar_experiencia_contadores para usuario {id_usuario}. Tiempo: {tiempo_respuesta:.3f}s")
+            logger.warning(f"Motivo inválido ({motivo}) en aumentar_experiencia_compra_venta para usuario {id_usuario}. Tiempo: {tiempo_respuesta:.3f}s")
 
         db.session.commit()
 
@@ -581,7 +575,7 @@ def aumentar_experiencia_contadores():
         logger.info(f"Experiencia aumentada para usuario {id_usuario}. Puntos agregados: {estatus.ptos_sistema}. Tiempo: {tiempo_respuesta:.3f}s")
 
         data = {
-            "message": "Puntos de experiencia y contadores aumentados exitosamente",
+            "message": "Puntos de experiencia aumentados exitosamente",
             "status": 200
         }
 
@@ -589,7 +583,7 @@ def aumentar_experiencia_contadores():
 
     except Exception as err:
         tiempo_respuesta = time.time() - inicio_tiempo
-        logger.error(f"Error en aumentar_experiencia_contadores: {err}. Tiempo: {tiempo_respuesta:.3f}s")
+        logger.error(f"Error en aumentar_experiencia_compra_venta: {err}. Tiempo: {tiempo_respuesta:.3f}s")
         return make_response(jsonify({
             'status': 500,
             'message': 'Error procesando la solicitud'

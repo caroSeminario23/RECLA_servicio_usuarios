@@ -66,3 +66,14 @@ Content-Type: application/json
     "motivo": 1
 }
 ###
+
+
+# AUMENTAR EXPERIENCIA POR COMPRA O VENTA
+POST http://127.0.0.1:5000/estatus_routes/aumentar_experiencia_compra_venta
+Content-Type: application/json
+
+{
+    "id_usuario": 12,
+    "motivo": 2
+}
+###
