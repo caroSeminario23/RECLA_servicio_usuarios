@@ -55,3 +55,25 @@ Content-Type: application/json
     "id_usuario": 7
 }
 ###
+
+# REGISTRAR ECOAPRENDIZ
+POST https://recla-servicio-usuarios.onrender.com/usuario_routes/registro_ecoaprendiz
+Content-Type: application/json
+
+{
+    "email": "semivaldi@gmail.com",
+    "contrasena": "123456",
+    "fec_nac": "2002-06-11",
+    "username": "Banano"
+}
+###
+
+
+# VERIFICAR EMAIL
+POST https://recla-servicio-usuarios.onrender.com/usuario_routes/verificar_email
+Content-Type: application/json
+
+{
+    "email": "semivaldi@gmail.com"
+}
+###
