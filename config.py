@@ -13,3 +13,4 @@ port = os.getenv('DB_PORT')
 
 # Crear la cadena de conexión
 DATABASE_CONNECTION = f'{server}://{user}:{pwd}@{host}:{port}/{db}'
+#print(DATABASE_CONNECTION)
