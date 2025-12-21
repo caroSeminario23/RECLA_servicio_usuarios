@@ -1,14 +1,71 @@
 # RECLA - SPRINT 1
 
-## Funcionalidades
-- Inicio de sesión
+## 1. Descripción del proyecto
+RECLA es una plataforma que implementa mecanismos de gamificación para promover la adopción del hábito de reciclaje en los ciudadanos limeños. De esta manera, buscar aportar al logro de las ODS 12 (Producción y consumo responsables) y 13 (Acción por el clima) de la Agenda 2030. En este repositorio se presenta el microservicio **usuarios** (modelos, esquemas, servicios y test).
 
-    ![Demo de inicio de sesión](images/demo_inicio_sesion.gif)
+### Funcionalidades
+- Registrar a un ecoaprendiz
+- Iniciar sesión para un ecoaprendiz
+- Mostrar estatus de un ecoaprendiz
+- Registrar actividad de un ecoaprendiz
+- Verificar puntos para adquisición de insignia o sticker
+- Incrementar la experiencia de un ecoaprendiz
+- Incrementar el valor de un contador
+- Mostrar la tabla de clasificación
 
-- Registro de usuario ecoaprendiz
+## 2. Estado del proyecto
+![Badge Finalizado](https://img.shields.io/badge/ESTADO-FINALIZADO-yellow)
 
-    ![Demo de registro de usuario ecoaprendiz](images/demo_registro.gif)
+## 3. Tecnologías utilizadas
+![Windows 11](https://img.shields.io/badge/Windows%2011-%230079d5.svg?style=for-the-badge&logo=Windows%2011&logoColor=white)
+![Visual Studio Code](https://img.shields.io/badge/Visual%20Studio%20Code-217346.svg?style=for-the-badge&logo=visual-studio-code&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
 
-- Servidor local
+## 4. Guía de instalación
+1. Clonar el repositorio en su IDE:
+    ```
+    https://github.com/caroSeminario23/RECLA_servicio_usuarios.git
+    ```
+
+2. Si se desea ejecutar en local, descomentar este fragmento de código de **app.py**:
+    ```
+    if __name__ == '__main__':
+        port = int(os.environ.get('PORT', 5000))
+        app.run(host='0.0.0.0', debug=False, port=port)
+    ```
+
+3. Crear un archivo **.env** y registrar los valores correspondientes (según la estructura plasmada en: **env.txt**).
+
+4. Crear un entorno virtual con virtualvenv y activarlo:
+   ```
+   python -m venv .venv
+   .venv\Scripts\activate
+   ```
+
+5. Instalar las dependencias del archivo **requirements.txt**:
+   ```
+   pip install -r requirements.txt
+   ```
+
+5. Para iniciar el microservicio (en localhost) digitar en la terminal: 
+   ```
+   python app.py
+   ```
+
+
+## 5. Licencia
+[![Licencia](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](./LICENSE)
+
+## 6. Anexos
+- Inicio de sesión:
+
+    <img src="images/demo_inicio_sesion.gif" alt="Demo de inicio de sesión" width="50%">
+
+- Registro de usuario ecoaprendiz:
+
+    <img src="images/demo_registro.gif" alt="Demo de registro de usuario ecoaprendiz" width="50%">
+
+- Llamado de servicios en servidor local:
 
     ![Registro de consola](images/demo_inicio_registro.png)
