@@ -1,4 +1,4 @@
-# RECLA - SPRINT 1
+# RECLA - SERVICIO USUARIOS
 
 ## 1. Descripción del proyecto
 RECLA es una plataforma que implementa mecanismos de gamificación para promover la adopción del hábito de reciclaje en los ciudadanos limeños. De esta manera, buscar aportar al logro de las ODS 12 (Producción y consumo responsables) y 13 (Acción por el clima) de la Agenda 2030. En este repositorio se presenta el microservicio **usuarios** (modelos, esquemas, servicios y test).
