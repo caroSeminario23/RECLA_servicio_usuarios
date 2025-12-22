@@ -56,16 +56,3 @@ RECLA es una plataforma que implementa mecanismos de gamificación para promover
 
 ## 5. Licencia
 [![Licencia](https://img.shields.io/github/license/Ileriayo/markdown-badges?style=for-the-badge)](./LICENSE)
-
-## 6. Anexos
-- Inicio de sesión:
-
-    <img src="images/demo_inicio_sesion.gif" alt="Demo de inicio de sesión" width="50%">
-
-- Registro de usuario ecoaprendiz:
-
-    <img src="images/demo_registro.gif" alt="Demo de registro de usuario ecoaprendiz" width="50%">
-
-- Llamado de servicios en servidor local:
-
-    ![Registro de consola](images/demo_inicio_registro.png)
